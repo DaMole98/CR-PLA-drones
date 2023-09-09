@@ -21,7 +21,7 @@ wavelength = constants.speed_of_light/f
 COHD=10 # coherence distance shadowing
 SIGXI=2.5 # deviazione standard dello shadowing
 PTAX=100# Nel libro è N1, oppure N2; qui si considera uno spazio "quadrato". E' il numero di punti per ogni asse della griglia
-STEP=0.5 # passo della griglia (distanza tra i punti, in metri)
+STEP=1 # passo della griglia (distanza tra i punti, in metri)
 
 ########################################################################################
 '''
@@ -173,6 +173,9 @@ max_y = x2[max_i, max_j]
 min_x = x1[min_i, min_j]
 min_y = x2[min_i, min_j]
 
+dist = np.sqrt((max_x - min_x) ** 2 + (max_y - min_y) ** 2) # distanza tra max e min
+
+
 
 
 fig_map = plt.figure(figsize=(10,8))
@@ -183,20 +186,22 @@ ax_map.set_ylabel("Y [m]", rotation=0)
 cntf_map = ax_map.contourf(x1, x2, ch, levels=1000, cmap=cm.coolwarm)
 cbar_map = fig_map.colorbar(cntf_map)
 
-# Traccia una linea che congiunge i punti max e min
-ax_map.plot([max_x, min_x], [max_y, min_y], color='black', linestyle='dashed', linewidth=1)
-
-# Annota i punti ax e min con le loro coordinate
-ax_map.annotate(f'Max ({max_x:.2f}, {max_y:.2f})', xy=(max_x, max_y), xytext=(-40, -20),
-             textcoords='offset points', arrowprops=None, color = 'black')
-
-ax_map.annotate(f'Min ({min_x:.2f}, {min_y:.2f})', xy=(min_x, min_y), xytext=(-30, 10),
-             textcoords='offset points', arrowprops=None, color = 'black')
-
-# Calcola e annota la lunghezza della linea
-dist = np.sqrt((max_x - min_x) ** 2 + (max_y - min_y) ** 2)
-ax_map.annotate(f'S = {dist:.2f}', xy=((max_x + min_x) / 2, (max_y + min_y) / 2), xytext=(-40, 0),
-             textcoords='offset points', arrowprops= None, color = 'black')
+## Traccia una linea che congiunge i punti max e min
+#ax_map.plot([max_x, min_x], [max_y, min_y], color='black', linestyle='dashed', linewidth=1)
+#
+## Annota i punti ax e min con le loro coordinate
+#ax_map.annotate(f'Max ({max_x:.2f}, {max_y:.2f})', xy=(max_x, max_y), xytext=(-40, -20),
+#             textcoords='offset points', arrowprops=None, color = 'black')
+#
+#ax_map.annotate(f'Min ({min_x:.2f}, {min_y:.2f})', xy=(min_x, min_y), xytext=(-30, 10),
+#             textcoords='offset points', arrowprops=None, color = 'black')
+#
+#ax_map.scatter([min_x], [min_y], c='black', marker='o', s=20)  # evidenzia i punti di massimo e minimo
+#ax_map.scatter([max_x], [max_y], c='black', marker='o', s=20)
+#
+## annota la lunghezza della linea
+#ax_map.annotate(f'S = {dist:.2f}', xy=((max_x + min_x) / 2, (max_y + min_y) / 2), xytext=(-40, 0),
+#             textcoords='offset points', arrowprops= None, color = 'black')
 
 
 
